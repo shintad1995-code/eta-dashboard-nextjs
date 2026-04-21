@@ -6,7 +6,7 @@ const SHEET_TAB = process.env.SHEET_TAB;
 function getAuth() {
   return new google.auth.JWT({
     email: process.env.GOOGLE_CLIENT_EMAIL,
-    key: process.env.GOOGLE_PRIVATE_KEY?.split('\\n').join('\n'),
+    key: Buffer.from(process.env.GOOGLE_PRIVATE_KEY_BASE64 || '', 'base64').toString('utf8'),
     scopes: ['https://www.googleapis.com/auth/spreadsheets'],
   });
 }
