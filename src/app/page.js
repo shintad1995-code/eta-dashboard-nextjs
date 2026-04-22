@@ -197,17 +197,27 @@ export default function Dashboard() {
     setPage(1);
   }, [data, search, remarkSearch, picFilter, supFilter, revFilter, pendingFilter, gccsFilter]);
 
-  async function handleUpdate(rowIndex, field, value) {
-    await fetch('/api/update', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ rowIndex, [field]: value, idx: colIdx }),
-    });
+
+async function handleUpdate(rowIndex, field, value) {
+  const body = { rowIndex, idx: colIdx };
+  if (field === 'ETA Update') body['ETA Update'] = value;
+  else if (field === 'partStatus') body['partStatus'] = value;
+  else if (field === 'remark') body['remark'] = value;
+  
+  const res = await fetch('/api/update', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+  const json = await res.json();
+  console.log('Update result:', json);
+  
+  if (json.success) {
     setData(prev => prev.map(r =>
       r._rowIndex === rowIndex ? preprocess({ ...r, [field]: value || null }) : r
     ));
   }
-
+}
   function resetFilters() {
     setSearch(''); setRemarkSearch(''); setPicFilter('');
     setSupFilter(''); setRevFilter(''); setPendingFilter(''); setGccsFilter('');
