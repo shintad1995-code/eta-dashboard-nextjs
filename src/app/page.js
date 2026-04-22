@@ -203,21 +203,25 @@ async function handleUpdate(rowIndex, field, value) {
   if (field === 'ETA Update') body['ETA Update'] = value;
   else if (field === 'partStatus') body['partStatus'] = value;
   else if (field === 'remark') body['remark'] = value;
-  
+
   const res = await fetch('/api/update', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
   });
   const json = await res.json();
-  console.log('Update result:', json);
-  
+
   if (json.success) {
+    // Map field name ke nama kolom di data
+    const dataField = field === 'partStatus' ? 'Part Status'
+                    : field === 'remark' ? 'Remark'
+                    : field;
     setData(prev => prev.map(r =>
-      r._rowIndex === rowIndex ? preprocess({ ...r, [field]: value || null }) : r
+      r._rowIndex === rowIndex ? preprocess({ ...r, [dataField]: value || null }) : r
     ));
   }
 }
+  
   function resetFilters() {
     setSearch(''); setRemarkSearch(''); setPicFilter('');
     setSupFilter(''); setRevFilter(''); setPendingFilter(''); setGccsFilter('');
