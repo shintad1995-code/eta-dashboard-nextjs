@@ -151,6 +151,7 @@ export default function Dashboard() {
   const [pendingFilter, setPendingFilter] = useState('');
   const [gccsFilter, setGccsFilter] = useState('');
 const [etaNewFilter, setEtaNewFilter] = useState(false);
+  const [ltFilter, setLtFilter] = useState(false);
 
   useEffect(() => {
     const stored = localStorage.getItem('eta_auth');
