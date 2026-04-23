@@ -150,6 +150,7 @@ export default function Dashboard() {
   const [revFilter, setRevFilter] = useState('');
   const [pendingFilter, setPendingFilter] = useState('');
   const [gccsFilter, setGccsFilter] = useState('');
+const [etaNewFilter, setEtaNewFilter] = useState(false);
 
   useEffect(() => {
     const stored = localStorage.getItem('eta_auth');
@@ -190,8 +191,13 @@ export default function Dashboard() {
       if (pendingFilter === 'WO' && r['WO Pending Validation'] !== 'Pending') return false;
       if (pendingFilter === 'DS' && r['DS Pending Validation'] !== 'Pending') return false;
       if (pendingFilter === 'ASC' && r['Pending SO ASC Validation'] !== 'Pending') return false;
-      if (gccsFilter === 'gccs' && r['ETA Revise'] !== 'YES') return false;
-      return true;
+if (gccsFilter === 'gccs'   && r['ETA Revise'] !== 'YES') return false;
+if (etaNewFilter) {
+  const ltVal = parseFloat(r['LT PENDING'] ?? '99');
+  if (r['ETA Update'] || ltVal > 1) return false;
+}
+return true;
+      
     });
     setFiltered(f);
     setPage(1);
