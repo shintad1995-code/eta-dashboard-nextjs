@@ -196,6 +196,10 @@ if (gccsFilter === 'gccs'   && r['ETA Revise'] !== 'YES') return false;
 if (etaNewFilter) {
   const ltVal = parseFloat(r['LT PENDING'] ?? '99');
   if (r['ETA Update'] || ltVal > 1) return false;
+  if (ltFilter) {
+  const ltVal = parseFloat(r['LT PENDING'] ?? '-1');
+  if (isNaN(ltVal) || ltVal < 0 || ltVal > 1) return false;
+}
 }
 return true;
       
@@ -341,6 +345,13 @@ async function handleUpdate(rowIndex, field, value) {
   <div className={styles.toggleGroup}>
     <button className={`${styles.toggleBtn} ${!etaNewFilter?styles.active:''}`} onClick={() => setEtaNewFilter(false)}>Semua</button>
     <button className={`${styles.toggleBtn} ${etaNewFilter?styles.active:''}`} onClick={() => setEtaNewFilter(true)}>🆕 ETA New</button>
+  </div>
+</div>
+              <div className={styles.toolbarSection}>
+  <label>LT Pending</label>
+  <div className={styles.toggleGroup}>
+    <button className={`${styles.toggleBtn} ${!ltFilter?styles.active:''}`} onClick={() => setLtFilter(false)}>Semua</button>
+    <button className={`${styles.toggleBtn} ${ltFilter?styles.active:''}`} onClick={() => setLtFilter(true)}>⏱ LT 0-1</button>
   </div>
 </div>
           <button className={styles.clearBtn} onClick={resetFilters}>✕ Reset</button>
