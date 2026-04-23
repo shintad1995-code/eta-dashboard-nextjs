@@ -402,7 +402,7 @@ async function handleUpdate(rowIndex, field, value) {
                         <td>{r['PIC'] ? <span className={`${styles.picBadge} ${styles['pic_'+r['PIC']]}`}>{r['PIC'][0]}</span> : '—'}</td>
                         <td className={styles.supplierCell}>{r['Supplier'] || '—'}</td>
                         <td>
-                          <EditCell value={r['ETA Update']} type="date" placeholder="ETA Update" isAuthed={authed} onSave={v => handleUpdate(r._rowIndex, 'ETA Update', v)} />
+                          <EditCell value={r['ETA Update']} type="text" placeholder="yyyy-mm-dd/Can't Provide" isAuthed={authed} onSave={v => handleUpdate(r._rowIndex, 'ETA Update', v)} />
                         </td>
                         <td>
                           {r['ETA Revise 2'] && <div className={styles.etaOld}>{fmtDate(r['ETA Revise 2'])}</div>}
