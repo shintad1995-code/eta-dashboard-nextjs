@@ -335,6 +335,13 @@ async function handleUpdate(rowIndex, field, value) {
               ))}
             </div>
           </div>
+              <div className={styles.toolbarSection}>
+  <label>ETA</label>
+  <div className={styles.toggleGroup}>
+    <button className={`${styles.toggleBtn} ${!etaNewFilter?styles.active:''}`} onClick={() => setEtaNewFilter(false)}>Semua</button>
+    <button className={`${styles.toggleBtn} ${etaNewFilter?styles.active:''}`} onClick={() => setEtaNewFilter(true)}>🆕 ETA New</button>
+  </div>
+</div>
           <button className={styles.clearBtn} onClick={resetFilters}>✕ Reset</button>
         </div>
 
