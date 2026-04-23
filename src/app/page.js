@@ -230,7 +230,7 @@ async function handleUpdate(rowIndex, field, value) {
   
   function resetFilters() {
     setSearch(''); setRemarkSearch(''); setPicFilter('');
-    setSupFilter(''); setRevFilter(''); setPendingFilter(''); setGccsFilter('');
+    setSupFilter(''); setRevFilter(''); setPendingFilter(''); setGccsFilter(''); setEtaNewFilter(false);
   }
 
   if (!authed && data.length === 0) return <LoginScreen onLogin={() => setAuthed(true)} />;
